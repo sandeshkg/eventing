@@ -1,0 +1,12 @@
+<ion-view title="Home" id="page1">
+    <ion-content padding="true" class="has-header">
+        <h1 id="home-heading1" style="color:#000000;">Event Manager</h1>
+        <ion-list ng-repeat="event in events">
+            <ion-item class="item-thumbnail-left">
+                <img>
+                <h2>{{event.title}}</h2>
+                <div class="item-text-wrap">{{event.description}}</div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
