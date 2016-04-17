@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, Events) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -25,8 +25,17 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
   
   var notificationOpenedCallback = function(jsonData) {
     console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
-    //if(jsonData.additionalInfo)
-    alert(JSON.stringify(jsonData));
+    if(jsonData.additionalData){
+      try {
+        Events.add(jsonData.additionalData.longtitle, jsonData.additionalData.longdescription);
+        //alert('Successfully inserted');
+        //alert(Events.all().length);
+      }
+      catch(e){
+        alert(e);
+      }
+    }
+    //alert(JSON.stringify(jsonData));
   };
 
   window.plugins.OneSignal.init("afa56c6f-73ca-4d5b-a0d9-c847ab96ee12",
