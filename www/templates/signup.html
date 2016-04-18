@@ -1,0 +1,16 @@
+<ion-view title="SignUp" id="page3">
+    <ion-content padding="true" class="has-header">
+        <h1 id="home-heading1" style="color:#000000;">Event Manager SignUp.</h1>
+        <div class="item item-input-inset">
+    <label class="item-input-wrapper">
+      <input type="text" placeholder="Secret key" ng-value="signup.key">
+    </label>
+    <button class="button button-small" data-ng-click="getToken()">
+      Submit
+    </button>
+     <div data-ng-hide="message == ''" class="alert alert-danger">
+                {{message}}
+            </div>
+  </div>
+    </ion-content>
+</ion-view>

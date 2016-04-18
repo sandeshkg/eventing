@@ -1,0 +1,17 @@
+<ion-view title="Login" id="page2">
+    <ion-content padding="true" class="has-header">
+        <h1 id="home-heading1" style="color:#000000;">SignUp.</h1>
+        <div class="item item-input-inset">
+    <label class="item-input-wrapper">
+      <input type="email" placeholder="Email" ng-model="login.email">
+    </label>
+    <button class="button button-small" data-ng-click="loginApp()">
+      Submit
+    </button>
+     <div data-ng-hide="message == ''" class="alert alert-danger">
+                {{message}}
+            </div>
+            </div>
+  </div>
+    </ion-content>
+</ion-view>
