@@ -1,6 +1,16 @@
-angular.module('app.services', [])
+angular.module('app.services', [ngStorage])
 
 .factory('Events', [function(){
+
+
+
+
+
+
+
+
+
+
 
 var id = 0;
 var events = [
@@ -64,7 +74,19 @@ return this;*/
   };
 
 
-}]);
+}])
+.factory('Storage', ['', function(){
+  return {
+    getItem : function(argument) {
+      // body...
+    },
+    saveItem : function(argument) {
+      // body...
+    }
+
+
+  };
+}])
 
 //.service('BlankService', [function(){
 
