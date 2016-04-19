@@ -1,11 +1,22 @@
 <ion-view title="Home" id="page1">
     <ion-content padding="true" class="has-header">
-        <h1 id="home-heading1" style="color:#000000;">Event Manager</h1>
+        <h1 id="home-heading1" style="color:#000000;">Upcoming Events</h1>
+        <div class="card">
+
+        <div ng-if="events.length == 0">
+           <div class="item-body">
+           <div class="item item-avatar">
+              <img src="img/hi-there.png">
+              <h2>Hi there !!</h2>
+           </div>
+           <p>There are no upcoming events scheduled. Will keep you posted when we have one. Looking forward for your participation. Thank u.</p></div>
+        </div>
         <ion-list ng-repeat="event in events">
             <a ng-click="showDetails(event.id)">
                 <ion-item class="item-thumbnail-left">
                         <img ng-if="event.type == 'announcement'" src="img/announce-64x64.ico">
                         <img ng-if="event.type == 'news'" src="img/news-128x128.png">
+                        <img ng-if="event.type == 'todo'" src="img/todo-64x64.ico">
                         <h2>{{event.title}}</h2>
                         <div class="item-text-wrap" ng-if="event.startTime">{{event.startTime | date}}</div>
                         <div class="item-text-wrap" ng-if="event.where">{{event.where}}</div>

@@ -55,6 +55,7 @@ angular.module('app.services', ['ngStorage'])
 
     $http.get('http://bulletin.us-west-2.elasticbeanstalk.com/api/Eventing/GetEventDetails')
     .then(function(response){
+      return;
       for(var i = 0; i < response.data.length; i++) {
         Array.prototype.map.call(response.data, 
 
