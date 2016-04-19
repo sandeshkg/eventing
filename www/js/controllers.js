@@ -5,7 +5,7 @@ angular.module('app.controllers', [])
 
 	$scope.showDetails = function(eventId){
 
-		$state.go('menu.details', { 'id' : '1'});
+		$state.go('menu.details', { 'id' : eventId});
 
 		console.log('Show details' + eventId);
 
@@ -52,16 +52,18 @@ angular.module('app.controllers', [])
 	}
 }])
 
-.controller('detailsCtrl',['$scope', '$stateParams', function($scope, $stateParams) {
+.controller('detailsCtrl',['$scope', '$stateParams', 'Events', function($scope, $stateParams, Events) {
 
-$scope.id = $stateParams.id;
-$scope.when = "Today";
-$scope.where = "In your home";
-$scope.img = '';
-$scope.title = '';
-$scope.venue = '';
-$scope.datetime='';
-$scope.details = '';
+	var details = Events.getDetails($stateParams.id);
+
+	$scope.id = details.id;
+	$scope.when = details.startTime;
+	$scope.where = details.where;
+	$scope.title = details.title;
+	$scope.description = details.description;
+	$scope.duration = details.duration;
+	$scope.image = details.image;
+	$scope.type = details.type;
 //$scope.eventid = $stateParams.id;
 
 }])  

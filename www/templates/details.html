@@ -2,14 +2,15 @@
     <ion-content padding="true" class="has-header">
         <div class="list card">
         	<div class="item item-avatar">
-        		<img src="https://upload.wikimedia.org/wikipedia/en/5/5f/TomandJerryTitleCardc.jpg">
-                <h2 class="">Townhall</h2>
+                <img ng-if="type == 'announcement'" src="img/announce-64x64.ico">
+                <img ng-if="type == 'news'" src="img/news-128x128.png">
+                <h2 class="">{{title}}</h2>
                 <p>When {{when}}</p>
                 <p>Where {{where}}</p>
         	</div>
             <div class="item-body">
             <img class="full-image" src="https://upload.wikimedia.org/wikipedia/en/5/5f/TomandJerryTitleCardc.jpg">
-                This a a very big descition of the event which is about to happen. We try to provide you with as much details as possible. If you still need further details please contact wikipedia or perform a google search for the event. All the best and enjoy. Have a great day!!
+                {{description}}
             </div>
         </div>
     </ion-content>

@@ -1,7 +1,18 @@
 angular.module('app.services', ['ngStorage'])
 
-.factory('Events', ['$localStorage', function($localStorage){
+.factory('Events', ['$localStorage', '$http', function($localStorage, $http){
 
+
+  function CustomEvent(id, type, title, description, where, starttime, duration, image){
+    this.id = id;
+    this.type = type ? type : 'news';
+    this.title = title;
+    this.description = description;
+    this.where = where;
+    this.starttime = starttime;
+    this.duration = duration;
+    this.image = image;
+  };
 
   var events = new Array();
   var newid = 0;
@@ -14,7 +25,7 @@ angular.module('app.services', ['ngStorage'])
     newid= events.length +1 || 0;
 
     //TODO:check the validity of the events, look for expiration policy
-    
+    /*
     var newevents = [
     {
       id:newid++ ,
@@ -31,7 +42,7 @@ angular.module('app.services', ['ngStorage'])
 
     for(var i = 0; i < newevents.length; i++) {
          events.push(newevents[i]);
-    }
+    }*/
 
     //newevents.map(function(index, elem) {
      
@@ -41,13 +52,37 @@ angular.module('app.services', ['ngStorage'])
   this.fetchNewEvents = function(){
 
     //TODO: once api is ready
-    var evt = {
+
+    $http.get('http://bulletin.us-west-2.elasticbeanstalk.com/api/Eventing/GetEventDetails')
+    .then(function(response){
+      for(var i = 0; i < response.data.length; i++) {
+        Array.prototype.map.call(response.data, 
+
+          function(elem) {
+            var evt = new CustomEvent(elem.id,
+              elem.type,
+              elem.title,
+              elem.description,
+              elem.venue,
+              elem.startTime,
+              elem.duration,
+              elem.iconImageURL);
+            events.push(evt);
+          });
+        }
+      }
+     , function(response){
+      console.log('Request failed');
+     });
+
+
+    /*var evt = {
       id:newid++,
       title:'Town Hall from Server',
       description:'Townhall with Manager, XYZ Company. Speaking about how to write a search engine without knowing syntax :)'
     };
 
-    events.push(evt);
+    events.push(evt);*/
   };
 
   this.saveEventsToStorage = function(){
@@ -90,17 +125,27 @@ angular.module('app.services', ['ngStorage'])
       all: function(){
         return events;
       },
-      add: function(title, description){
-        var evt = new Object();
-        evt.id = newid++;
-        evt.title = title;
-        evt.description = description;
+      add: function(id, type, title, description, venue, startTime, duration, iconImageURL){
 
-        events.push(evt);
+        var evt = new CustomEvent(id,
+              type,
+              title,
+              description,
+              venue,
+              startTime,
+              duration,
+              iconImageURL);
+            events.push(evt);
         self.notifySubscribers();
       },
       awaitUpdate : function(key,callback){
         self.notificationSubscribers[key]=callback;
+      },
+      getDetails : function(id){
+        for(var i = 0; i < events.length; i++) {
+         if(events[i].id == id)
+          return events[i];
+        }
       }
     };
 

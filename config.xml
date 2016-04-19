@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.techtik.eventing" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>Eventing</name>
+  <name>Bulletin</name>
   <description>
-        An event management tool for events and happenings.
+        Bulletin board for events and happenings.
     </description>
   <author email="dev.skg@gmail.com" href="http://example.com.com/">
-      Your Name Here
+      Sandesh Kumar
     </author>
   <content src="index.html"/>
   <access origin="*"/>

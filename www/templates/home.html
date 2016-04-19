@@ -2,10 +2,13 @@
     <ion-content padding="true" class="has-header">
         <h1 id="home-heading1" style="color:#000000;">Event Manager</h1>
         <ion-list ng-repeat="event in events">
-            <a ng-click="showDetails()">
+            <a ng-click="showDetails(event.id)">
                 <ion-item class="item-thumbnail-left">
-                        <img>
+                        <img ng-if="event.type == 'announcement'" src="img/announce-64x64.ico">
+                        <img ng-if="event.type == 'news'" src="img/news-128x128.png">
                         <h2>{{event.title}}</h2>
+                        <div class="item-text-wrap" ng-if="event.startTime">{{event.startTime | date}}</div>
+                        <div class="item-text-wrap" ng-if="event.where">{{event.where}}</div>
                         <div class="item-text-wrap">{{event.description}}</div>
                 </ion-item>
             </a>

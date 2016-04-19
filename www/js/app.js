@@ -27,7 +27,18 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
     console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
     if(jsonData.additionalData){
       try {
-        Events.add(jsonData.additionalData.longtitle, jsonData.additionalData.longdescription);
+        Events.add(jsonData.additionalData.nid, jsonData.additionalData.ntype,
+          jsonData.additionalData.ntitle,
+          jsonData.additionalData.ndescription,
+          jsonData.additionalData.nvenue,
+          jsonData.additionalData.nstartTime,
+          jsonData.additionalData.nduration,
+          jsonData.additionalData.nimage);
+        
+
+        //id, type, title, description, venue, startTime, duration, iconImageURL
+
+
         //alert('Successfully inserted');
         //alert(Events.all().length);
       }
@@ -49,3 +60,16 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
 
   });
 })
+.filter('datetime', function($filter)
+{
+ return function(input)
+ {
+  if(input == null){ return ""; } 
+ 
+  var _date = $filter('date')(new Date(input),
+                              'MMM dd yyyy - HH:mm:ss');
+ 
+  return _date.toUpperCase();
+
+ };
+});
