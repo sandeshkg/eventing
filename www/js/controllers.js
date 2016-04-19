@@ -3,13 +3,13 @@ angular.module('app.controllers', [])
 .controller('homeCtrl', ['$scope', 'Events', '$state', function($scope, Events, $state) {
 	$scope.events = Events.all();
 
-	/*$scope.showDetails = function(eventId){
+	$scope.showDetails = function(eventId){
 
 		$state.go('menu.details', { 'id' : '1'});
 
 		console.log('Show details' + eventId);
 
-	};*/
+	};
 
 	Events.awaitUpdate('homeCtrl', function(){
 		//alert('Callback triggered')
