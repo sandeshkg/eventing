@@ -4,11 +4,8 @@ angular.module('app.controllers', [])
 	$scope.events = Events.all();
 	console.log('1'+$scope.events.length);
 	$scope.showDetails = function(eventId){
-
 		$state.go('menu.details', { 'id' : eventId});
-
 		console.log('Show details' + eventId);
-
 	};
 
 	Events.awaitUpdate('homeCtrl', function(){
