@@ -2,7 +2,7 @@ angular.module('app.controllers', [])
   
 .controller('homeCtrl', ['$scope', 'Events', '$state', function($scope, Events, $state) {
 	$scope.events = Events.all();
-
+	console.log('1'+$scope.events.length);
 	$scope.showDetails = function(eventId){
 
 		$state.go('menu.details', { 'id' : eventId});
@@ -14,6 +14,7 @@ angular.module('app.controllers', [])
 	Events.awaitUpdate('homeCtrl', function(){
 		//alert('Callback triggered')
 		$scope.events = Events.all();
+		console.log('2' +$scope.events.length);
 		$scope.$apply();
 	})
 }])

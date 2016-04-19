@@ -6,11 +6,11 @@
                 <img ng-if="type == 'news'" src="img/news-128x128.png">
                 <img ng-if="type == 'todo'" src="img/todo-64x64.ico">
                 <h2 class="">{{title}}</h2>
-                <p>When {{when}}</p>
-                <p>Where {{where}}</p>
+                <p ng-if="when">When : {{when}}</p>
+                <p ng-if="where">Where {{where}}</p>
         	</div>
             <div class="item-body">
-            <img class="full-image" src="https://upload.wikimedia.org/wikipedia/en/5/5f/TomandJerryTitleCardc.jpg">
+            <img class="full-image" ng-src="{{image}}">
                 {{description}}
             </div>
         </div>
