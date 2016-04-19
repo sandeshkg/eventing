@@ -1,5 +1,13 @@
 @charset "UTF-8";
 
-.menu-item{
-	background-color: black !important;
+a {
+    color: #0060B6;
+    text-decoration: none;
+}
+
+a:hover 
+{
+     color:#00A0C6; 
+     text-decoration:none; 
+     cursor:pointer;  
 }
