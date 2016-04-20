@@ -19,7 +19,7 @@
                         <h2>{{event.title}}</h2>
                         <div class="item-text-wrap" ng-if="event.startTime">{{event.startTime | date}}</div>
                         <div class="item-text-wrap" ng-if="event.where">{{event.where}}</div>
-                        <div class="item-text-wrap">{{event.description}}</div>
+                        <div class="item-text-wrap">{{event.description | characters: 50}}</div>
                 </ion-item>
             </a>
         </ion-list>

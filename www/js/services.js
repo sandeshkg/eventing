@@ -86,7 +86,7 @@ angular.module('app.services', ['ngStorage'])
             startTime,
             duration,
             iconImageURL);
-          events.push(evt);
+          events[id] = evt;
       self.notifySubscribers();
     },
     awaitUpdate : function(key,callback){

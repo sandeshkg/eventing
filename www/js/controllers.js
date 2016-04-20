@@ -1,4 +1,4 @@
-angular.module('app.controllers', [])
+angular.module('app.controllers', ['truncate'])
   
 .controller('homeCtrl', ['$scope', 'Events', '$state', function($scope, Events, $state) {
 	$scope.events = Events.all();

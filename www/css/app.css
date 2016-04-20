@@ -12,8 +12,8 @@ a:hover
      cursor:pointer;  
 }
 
-.card{
+/*.card{
       display: -webkit-box !important;
   -webkit-line-clamp: 3   !important;
   -webkit-box-orient: vertical !important;
-}
+}*/

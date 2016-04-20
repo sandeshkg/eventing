@@ -1,6 +1,6 @@
 <ion-view title="Details" id="page4">
     <ion-content padding="true" class="has-header">
-        <div class="list card">
+        <div class="card">
         	<div class="item item-avatar">
                 <img ng-if="type == 'announcement'" src="img/announce-64x64.ico">
                 <img ng-if="type == 'news'" src="img/news-128x128.png">
@@ -11,8 +11,9 @@
         	</div>
             <div class="item-body">
             <img class="full-image" ng-src="{{image}}">
-                {{description}}
+            <p>    {{description}}</p>
             </div>
         </div>
+        
     </ion-content>
 </ion-view>
