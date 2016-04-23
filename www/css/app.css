@@ -12,6 +12,18 @@ a:hover
      cursor:pointer;  
 }
 
+.list{
+padding-top:3px;
+padding-bottom:3px;
+}
+
+.bar.bar-assertive {
+    border-color: #2B2929;
+    background-color: #2B2929;
+    background-image: linear-gradient(0deg, #2B2929, #2B2929 50%, transparent 50%);
+    color: #fff;
+}
+
 /*.card{
       display: -webkit-box !important;
   -webkit-line-clamp: 3   !important;

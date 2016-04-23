@@ -1,19 +1,71 @@
 <ion-view title="Details" id="page4">
-    <ion-content padding="true" class="has-header">
+    <ion-content padding="true" class="has-header" style="
+        background-color: rgba(248, 251, 37, 0.44);
+        /* background-color: rgba(255, 22, 4, 0.129412);
+        background-image: url('img/bl-bg.jpg'); */
+        ">
         <div class="card">
-        	<div class="item item-avatar">
+            <div class="item item-avatar">
                 <img ng-if="type == 'announcement'" src="img/announce-64x64.ico">
                 <img ng-if="type == 'news'" src="img/news-128x128.png">
                 <img ng-if="type == 'todo'" src="img/todo-64x64.ico">
                 <h2 class="">{{title}}</h2>
                 <p ng-if="when">When : {{when}}</p>
                 <p ng-if="where">Where {{where}}</p>
-        	</div>
+            </div>
             <div class="item-body">
-            <img class="full-image" ng-src="{{image}}">
-            <p>    {{description}}</p>
+                <div class='csslider1 autoplay '>
+                    <input name="cs_anchor1" id='cs_slide1_0' type="radio" class='cs_anchor slide'>
+                    <input name="cs_anchor1" id='cs_slide1_1' type="radio" class='cs_anchor slide'>
+                    <input name="cs_anchor1" id='cs_slide1_2' type="radio" class='cs_anchor slide'>
+                    <input name="cs_anchor1" id='cs_play1' type="radio" class='cs_anchor' checked>
+                    <input name="cs_anchor1" id='cs_pause1_0' type="radio" class='cs_anchor pause'>
+                    <input name="cs_anchor1" id='cs_pause1_1' type="radio" class='cs_anchor pause'>
+                    <input name="cs_anchor1" id='cs_pause1_2' type="radio" class='cs_anchor pause'>
+                    <ul>
+                        <!--<li class="cs_skeleton"><img class="full-image" ng-src="{{image}}" style="width: 100%;"></li>
+                        <li class='num0 img slide'><img class="full-image" ng-src="{{image}}"></li>
+                        <li class='num1 img slide'><img class="full-image" ng-src="{{image}}"></li>
+                        <li class='num2 img slide'><img class="full-image" ng-src="{{image}}"></li>-->
+                        <li class="cs_skeleton"><img class="full-image" ng-src="cssslider_files/imgs/s2n.png" style="width: 100%;"></li>
+                        <li class='num0 img slide'><img class="full-image" ng-src="cssslider_files/imgs/aws.png"></li>
+                        <li class='num1 img slide'><img class="full-image" ng-src="cssslider_files/imgs/s2n.png"></li>
+                        <li class='num2 img slide'><img class="full-image" ng-src="cssslider_files/imgs/9.png"></li>
+                    </ul>
+
+                    <div class='cs_play_pause'>
+                        <label class='cs_play' for='cs_play1'><span><i></i><b></b></span></label>
+                        <label class='cs_pause num0' for='cs_pause1_0'><span><i></i><b></b></span></label>
+                        <label class='cs_pause num1' for='cs_pause1_1'><span><i></i><b></b></span></label>
+                        <label class='cs_pause num2' for='cs_pause1_2'><span><i></i><b></b></span></label>
+                    </div>
+                    <div class='cs_arrowprev'>
+                        <label class='num0' for='cs_slide1_0'><span><i></i><b></b></span></label>
+                        <label class='num1' for='cs_slide1_1'><span><i></i><b></b></span></label>
+                        <label class='num2' for='cs_slide1_2'><span><i></i><b></b></span></label>
+                    </div>
+                    <div class='cs_arrownext'>
+                        <label class='num0' for='cs_slide1_0'><span><i></i><b></b></span></label>
+                        <label class='num1' for='cs_slide1_1'><span><i></i><b></b></span></label>
+                        <label class='num2' for='cs_slide1_2'><span><i></i><b></b></span></label>
+                    </div>
+                    <div class='cs_bullets'>
+                        <label class='num0' for='cs_slide1_0'>
+                            <span class='cs_point'></span>
+                            <span class='cs_thumb'><img class="full-image" ng-src="cssslider_files/imgs/aws.png"></span>
+                        </label>
+                        <label class='num1' for='cs_slide1_1'>
+                            <span class='cs_point'></span>
+                            <span class='cs_thumb'><img class="full-image" ng-src="cssslider_files/imgs/s2n.png"></span>
+                        </label>
+                        <label class='num2' for='cs_slide1_2'>
+                            <span class='cs_point'></span>
+                            <span class='cs_thumb'><img class="full-image" ng-src="cssslider_files/imgs/9.png"></span>
+                        </label>
+                    </div>
+                </div>
+                <p>    {{description}}</p>
             </div>
         </div>
-        
     </ion-content>
 </ion-view>
