@@ -23,6 +23,8 @@
     <script src="js/routes.js"></script>
     <script src="js/services.js"></script>
     <script src="js/directives.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/notify.js"></script>
 
     <!-- Only required for Tab projects w/ pages in multiple tabs
     <script src="lib/ionicuirouter/ionicUIRouter.js"></script>
@@ -32,7 +34,7 @@
     <link rel="stylesheet" href="cssslider_files/csss_engine1/style.css">
     <!--[if IE]><link rel="stylesheet" href="cssslider_files/csss_engine1/ie.css"><![endif]-->
     <!--[if lte IE 9]><script type="text/javascript" src="cssslider_files/csss_engine1/ie.js"></script><![endif]-->
-    <script type="text/javascript" src="cssslider_files/csss_engine1/gestures.js"></script> 
+    <script type="text/javascript" src="cssslider_files/csss_engine1/gestures.js"></script>
 </head>
 <body ng-app="app" animation="slide-left-right-ios7">
     <div>
@@ -40,5 +42,36 @@
             <ion-nav-view></ion-nav-view>
         </div>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //☺ --Dont remove this
+            setInterval(function () {
+                $.notify.addStyle('notify-css', {
+                    html: "<div><span data-notify-text/>&nbsp;<strong>&rArr;</strong></div>",
+                    classes: {
+                        notify: {
+                            "color": "white",
+                            "background-color": "#F9B295",
+                            "font-family": "sans-serif,'Arial'",
+                            "border": "solid",
+                            "border-color": "#F9B295",
+                            "border-radius": "4px",
+                            "padding": "5px"
+                        }
+                    }
+                });
+                $.notify('Incoming - Diversity Premier League', {
+                    style: 'notify-css',
+                    className: 'notify',
+                    autoHide: true,
+                    clickToHide: true,
+                    position: 'bottom',
+                    autoHideDelay: 3000
+                });
+                $('.notifyjs-corner').css("position", "absolute");
+                $('.notifyjs-corner').css("right", "0");
+            }, 5000);
+        });
+    </script>
 </body>
 </html>

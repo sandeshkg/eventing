@@ -16,7 +16,7 @@
         </div>
         <ion-list ng-repeat="event in events">
             <a ng-click="showDetails(event.id)">
-                <ion-item class="item-thumbnail-left">
+                <ion-item class="item-thumbnail-left" style="background-color: rgba(253, 255, 192, 0.21);">
                     <img ng-if="event.type == 'announcement'" src="img/announce-64x64.ico">
                     <img ng-if="event.type == 'news'" src="img/news-128x128.png">
                     <img ng-if="event.type == 'todo'" src="img/todo-64x64.ico">
