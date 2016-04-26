@@ -5,11 +5,7 @@
         background-image: url('img/bl-bg.jpg'); */
         ">
         <div class="card">
-            <div id="slider">
-                <figure>
-                    <img ng-repeat="url in imageurls" src="{{url}}">
-                </figure>
-            </div>
+            
             <div class="item-body">
                 <div class="item item-avatar">
                     <img ng-if="type == 'announcement'" src="img/announce-64x64.ico">
@@ -18,6 +14,11 @@
                     <h2 class="">{{title}}</h2>
                     <p ng-if="when">When : {{when}}</p>
                     <p ng-if="where">Where {{where}}</p>
+                </div>
+                <div id="slider">
+                  <figure>
+                      <img ng-repeat="url in imageurls" src="{{url}}">
+                  </figure>
                 </div>
                 <p>    {{description}}</p>
             </div>
