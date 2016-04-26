@@ -3,7 +3,7 @@ angular.module('app.services', ['ngStorage'])
 .factory('Events', ['$localStorage', '$http', function ($localStorage, $http) {
 
 
-    function CustomEvent(id, type, title, description, where, starttime, duration, image,urls) {
+    function CustomEvent(id, type, title, description, where, starttime, duration, image, sliderImageUrls) {
         this.id = id;
         this.type = type ? type : 'news';
         this.title = title;
@@ -12,11 +12,10 @@ angular.module('app.services', ['ngStorage'])
         this.starttime = starttime;
         this.duration = duration;
         this.image = image;
-        this.imageurls = urls;
+        this.sliderImageUrls = sliderImageUrls;
     };
 
     var events = {};
-    this.imageurls = {};
     this.loadEventsFromStorage = function () {
 
         if ($localStorage.events) {
@@ -43,7 +42,7 @@ angular.module('app.services', ['ngStorage'])
                         elem.startTime,
                         elem.duration,
                         elem.iconImageURL,
-                        elem.iconImageURL.split(','));
+                        elem.sliderImageUrls.split(','));
                       events[elem.id] = evt;
                   });
             }
@@ -78,7 +77,7 @@ angular.module('app.services', ['ngStorage'])
         all: function () {
             return events;
         },
-        add: function (id, type, title, description, venue, startTime, duration, iconImageURL) {
+        add: function (id, type, title, description, venue, startTime, duration, iconImageURL, sliderImageUrls) {
 
             var evt = new CustomEvent(id,
                   type,
@@ -88,7 +87,7 @@ angular.module('app.services', ['ngStorage'])
                   startTime,
                   duration,
                   iconImageURL,
-                  iconImageURL.split(','));
+                  sliderImageUrls.split(','));
             events[id] = evt;
             self.notifySubscribers();
         },
