@@ -12,6 +12,48 @@ a:hover
      cursor:pointer;  
 }
 
+.list{
+padding-top:3px;
+padding-bottom:3px;
+}
+
+.bar.bar-assertive {
+    border-color: #F79973;
+    background-color: #F79973;
+    background-image: linear-gradient(0deg, #F79973, #F79973 50%, transparent 50%);
+    color: #fff;
+}
+
+ .item-content {
+    background-color: rgba(253, 255, 192, 0.21);
+}
+
+@keyframes slidy {
+0% { left: 0%; }
+20% { left: 0%; }
+25% { left: -100%; }
+45% { left: -100%; }
+50% { left: -200%; }
+70% { left: -200%; }
+75% { left: -300%; }
+95% { left: -300%; }
+100% { left: -400%; }
+}
+
+/*body { margin: 0; } */
+div#slider { overflow: hidden;}
+div#slider figure img { width: 20%; float: left; }
+div#slider figure { 
+  position: relative;
+  width: 500%;
+  margin: 0;
+  left: 0;
+  text-align: left;
+  font-size: 0;
+  animation: 15s slidy infinite; 
+}
+
+
 /*.card{
       display: -webkit-box !important;
   -webkit-line-clamp: 3   !important;

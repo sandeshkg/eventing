@@ -1,19 +1,26 @@
-<ion-view title="Details" id="page4">
-    <ion-content padding="true" class="has-header">
+<ion-view title="Know More" id="page4">
+    <ion-content padding="true" class="has-header" style="
+        background-color: #FEF0E8;
+        /* background-color: rgba(255, 22, 4, 0.129412);
+        background-image: url('img/bl-bg.jpg'); */
+        ">
         <div class="card">
-        	<div class="item item-avatar">
-                <img ng-if="type == 'announcement'" src="img/announce-64x64.ico">
-                <img ng-if="type == 'news'" src="img/news-128x128.png">
-                <img ng-if="type == 'todo'" src="img/todo-64x64.ico">
-                <h2 class="">{{title}}</h2>
-                <p ng-if="when">When : {{when}}</p>
-                <p ng-if="where">Where {{where}}</p>
-        	</div>
+            <div id="slider">
+                <figure>
+                    <img ng-repeat="url in imageurls" src="{{url}}">
+                </figure>
+            </div>
             <div class="item-body">
-            <img class="full-image" ng-src="{{image}}">
-            <p>    {{description}}</p>
+                <div class="item item-avatar">
+                    <img ng-if="type == 'announcement'" src="img/announce-64x64.ico">
+                    <img ng-if="type == 'news'" src="img/news-128x128.png">
+                    <img ng-if="type == 'todo'" src="img/todo-64x64.ico">
+                    <h2 class="">{{title}}</h2>
+                    <p ng-if="when">When : {{when}}</p>
+                    <p ng-if="where">Where {{where}}</p>
+                </div>
+                <p>    {{description}}</p>
             </div>
         </div>
-        
     </ion-content>
 </ion-view>

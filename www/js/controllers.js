@@ -62,6 +62,7 @@ angular.module('app.controllers', ['truncate'])
 	$scope.duration = details.duration;
 	$scope.image = details.image;
 	$scope.type = details.type;
+	$scope.imageurls = details.imageurls;
 //$scope.eventid = $stateParams.id;
 
 }])  
