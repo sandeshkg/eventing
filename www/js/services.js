@@ -1,6 +1,6 @@
-angular.module('app.services', ['ngStorage'])
+angular.module('app.services', ['ngStorage', 'ui-notification'])
 
-.factory('Events', ['$localStorage', '$http', function ($localStorage, $http) {
+.factory('Events', ['$localStorage', '$http', 'Notification', function ($localStorage, $http, Notification) {
 
 
     function CustomEvent(id, type, title, description, where, starttime, duration, image, sliderImageUrls) {
@@ -42,10 +42,12 @@ angular.module('app.services', ['ngStorage'])
                         elem.startTime,
                         elem.duration,
                         elem.iconImageURL,
-                        elem.sliderImageUrls.split(','));
+                        elem.iconImageURL.split(','));//elem.sliderImageUrls.split(','));
                       events[elem.id] = evt;
                   });
             }
+
+            Notification.success('Latest events fetched succesfully !');
         }
          , function (response) {
              console.log(response);
@@ -145,6 +147,18 @@ angular.module('app.services', ['ngStorage'])
         // do some bounds checking here to ensure it has that index
         return input.split(splitChar)[splitIndex];
     }
-});
+})
+
+.config(function(NotificationProvider) {
+        NotificationProvider.setOptions({
+            delay: 3000,
+            startTop: 20,
+            startRight: 10,
+            verticalSpacing: 20,
+            horizontalSpacing: 20,
+            positionX: 'center',
+            positionY: 'bottom'
+        });
+    });
 
 
