@@ -1,35 +1,53 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 
 a {
     color: #0060B6;
     text-decoration: none;
 }
 
-a:hover 
-{
-     color:#00A0C6; 
-     text-decoration:none; 
-     cursor:pointer;  
-}
+    a:hover {
+        color: #00A0C6;
+        text-decoration: none;
+        cursor: pointer;
+    }
 
-.list{
-padding-top:3px;
-padding-bottom:3px;
+.list {
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 
 .bar.bar-assertive {
-    border-color: #F79973;
-    background-color: #F79973;
-    background-image: linear-gradient(0deg, #F79973, #F79973 50%, transparent 50%);
+    border-color: #1976D2;
+    background-color: #1976D2;
+    background-image: linear-gradient(0deg, #1976D2, #1976D2 50%, transparent 50%);
     color: #fff;
 }
 
- .item-content {
+.item-content {
     background-color: rgba(253, 255, 192, 0.21);
 }
 
+.grad {
+    background: #1976D2; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(top right, #1976D2, #81C784); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(bottom right, #1976D2, #81C784); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(bottom right, #1976D2, #81C784); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#1976D2, #81C784); /* Standard syntax */
+}
+
+.top-header {
+    height: 107px;
+    padding-top: 7px;
+    padding-left: 10px;
+    margin-top: -10px;
+    margin-bottom: -55px;
+    margin-left: -10px;
+    margin-right: -10px;
+    background-color: #80C684;
+}
+
 @keyframes slidy {
-/*0% { left: 0%; }
+    /*0% { left: 0%; }
 20% { left: 0%; }
 25% { left: -100%; }
 45% { left: -100%; }
@@ -39,26 +57,51 @@ padding-bottom:3px;
 95% { left: -300%; }
 100% { left: -400%; }
 */
-0% {left: 0%;}
-25% {left: 0%;}
-45% {left: -100%;}
-50% {left: -100%;}
-75% {left: -200%;}
-100% {left: 0%;}
+    0% {
+        left: 0%;
+    }
+
+    25% {
+        left: 0%;
+    }
+
+    45% {
+        left: -100%;
+    }
+
+    50% {
+        left: -100%;
+    }
+
+    75% {
+        left: -200%;
+    }
+
+    100% {
+        left: 0%;
+    }
 }
 
 /*body { margin: 0; } */
-div#slider { overflow: hidden;}
-div#slider figure img { width: 33%; float: left; }
-div#slider figure { 
-  position: relative;
-  width: 303%;
-  margin: 0;
-  left: 0;
-  text-align: left;
-  font-size: 0;
-  animation: 15s slidy infinite; 
+div#slider {
+    overflow: hidden;
+    margin: 0px -16px 0px -16px;
 }
+
+    div#slider figure img {
+        width: 33%;
+        float: left;
+    }
+
+    div#slider figure {
+        position: relative;
+        width: 303%;
+        margin: 0;
+        left: 0;
+        text-align: left;
+        font-size: 0;
+        animation: 15s slidy infinite;
+    }
 
 
 /*.card{

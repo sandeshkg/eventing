@@ -1,10 +1,12 @@
 <ion-view title="Hot Scoop" id="page1">
-    <ion-content padding="true" class="has-header" style="
-        background-color:  #FEF0E8;
-        /* background-color: rgba(255, 22, 4, 0.129412);
+    <ion-content padding="true" class="has-header grad" style="
+       /* background-color:  #BBDEFB;
+         background-color: rgba(255, 22, 4, 0.129412);
         background-image: url('img/bl-bg.jpg'); */
         ">
-        <h2 id="home-heading1" style="color: #F9B295;font-family: sans-serif;">Upcoming scoops</h2>
+        <div class="top-header">
+            <h2 id="home-heading1" style="color: #fff;font-family: sans-serif;">Upcoming scoops</h2>
+        </div>
         <div class="card" ng-if="events.length == 0">
             <div class="item-body">
                 <div class="item item-avatar">
@@ -16,7 +18,7 @@
         </div>
         <ion-list ng-repeat="event in events">
             <a ng-click="showDetails(event.id)">
-                <ion-item class="item-thumbnail-left" style="background-color: rgba(253, 255, 192, 0.21);">
+                <ion-item class="item-thumbnail-left" style="background-color: #ffffff;">
                     <img ng-if="event.type == 'announcement'" src="img/announce-64x64.ico">
                     <img ng-if="event.type == 'news'" src="img/news-128x128.png">
                     <img ng-if="event.type == 'todo'" src="img/todo-64x64.ico">

@@ -53,7 +53,7 @@ angular.module('app.controllers', ['truncate'])
 .controller('detailsCtrl',['$scope', '$stateParams', 'Events', function($scope, $stateParams, Events) {
 
 	var details = Events.getDetails($stateParams.id);
-
+	$scope.multiimg = false;
 	$scope.id = details.id;
 	$scope.when = details.startTime;
 	$scope.where = details.where;
@@ -62,7 +62,12 @@ angular.module('app.controllers', ['truncate'])
 	$scope.duration = details.duration;
 	$scope.image = details.image;
 	$scope.type = details.type;
-	$scope.imageurls = details.imageurls;
-//$scope.eventid = $stateParams.id;
-
+	if (details.sliderImageUrls.length > 1) {
+	    $scope.imageurls = details.sliderImageUrls;
+	    $scope.multiimg = true;
+	}
+	else
+	{
+	    $scope.singleimg = true;
+	}
 }])  
