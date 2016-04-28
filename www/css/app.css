@@ -40,10 +40,11 @@ a {
     padding-top: 7px;
     padding-left: 10px;
     margin-top: -10px;
-    margin-bottom: -55px;
+    /*margin-bottom: -55px;*/
     margin-left: -10px;
     margin-right: -10px;
-    background-color: #80C684;
+    /*background-color: #80C684;*/
+    background-color: rgba(255,255,255,0);
 }
 
 @keyframes slidy {

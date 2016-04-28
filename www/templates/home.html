@@ -1,11 +1,15 @@
 <ion-view title="Hot Scoop" id="page1">
-    <ion-content padding="true" class="has-header grad" style="
-       /* background-color:  #BBDEFB;
-         background-color: rgba(255, 22, 4, 0.129412);
-        background-image: url('img/bl-bg.jpg'); */
-        ">
+    <ion-content padding="true" class="has-header grad">
         <div class="top-header">
-            <h2 id="home-heading1" style="color: #fff;font-family: sans-serif;">Upcoming scoops</h2>
+            <ul class="cvr-flw">
+                <li ng-repeat="event in events">
+                    <a ng-click="showDetails(event.id)">
+                        <img ng-if="event.type == 'announcement'" src="img/announce-64x64.ico">
+                        <img ng-if="event.type == 'news'" src="img/news-128x128.png">
+                        <img ng-if="event.type == 'todo'" src="img/todo-64x64.ico">
+                    </a>
+                </li>
+            </ul>
         </div>
         <div class="card" ng-if="events.length == 0">
             <div class="item-body">
