@@ -41,7 +41,7 @@ angular.module('app.services', ['ngStorage', 'ui-notification'])
                         elem.venue,
                         elem.startTime,
                         elem.duration,
-                        elem.iconImageURL,
+                        elem.iconImageURL.split(',')[0],
                         elem.iconImageURL.split(','));//elem.sliderImageUrls.split(','));
                       events[elem.id] = evt;
                   });

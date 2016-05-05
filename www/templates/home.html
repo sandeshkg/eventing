@@ -1,12 +1,26 @@
 <ion-view title="Hot Scoop" id="page1">
     <ion-content padding="true" class="has-header grad">
         <div class="top-header">
-            <ul class="cvr-flw">
-                <li ng-repeat="event in events">
-                    <a ng-click="showDetails(event.id)">
-                        <img ng-if="event.type == 'announcement'" src="img/announce-64x64.ico">
-                        <img ng-if="event.type == 'news'" src="img/news-128x128.png">
-                        <img ng-if="event.type == 'todo'" src="img/todo-64x64.ico">
+            <div class="top-header-item" ng-repeat="event in TopEvents">
+                <a ng-click="showDetails(event.id)">
+                    <div ng-class-odd="'odd'" ng-class-even="'even'"></div>{{event.title | characters: 18}}
+                </a>
+            </div>
+        </div>
+        <div class="carousel-demo">
+            <ul rn-carousel rn-carousel-transition="hexagon"
+                rn-carousel-index="carouselIndex3" rn-carousel-buffered class="carousel3">
+                <li ng-repeat="slide in slides track by slide.id" ng-class="'id-' + slide.id">
+                    <a ng-click="showDetails(slide.id)">
+                        <div ng-style="{'background-image': 'url(' + slide.img + ')'}" class="bgimage">
+                        </div>
+                        <div class="slider-text">
+
+                            <h2 style="color: #988888;">{{slide.title}}</h2>
+                            <div class="item-text-wrap" ng-if="slide.startTime">{{slide.startTime | date}}</div>
+                            <div class="item-text-wrap" ng-if="slide.where">{{slide.where}}</div>
+                            <div class="item-text-wrap">{{slide.description | characters: 50}}</div>
+                        </div>
                     </a>
                 </li>
             </ul>
@@ -20,7 +34,7 @@
                 <p>There are no upcoming events scheduled. Will keep you posted when we have one. Looking forward for your participation. Thank u.</p>
             </div>
         </div>
-        <ion-list ng-repeat="event in events">
+        <!--<ion-list ng-repeat="event in events">
             <a ng-click="showDetails(event.id)">
                 <ion-item class="item-thumbnail-left" style="background-color: #ffffff;">
                     <img ng-if="event.type == 'announcement'" src="img/announce-64x64.ico">
@@ -32,6 +46,6 @@
                     <div class="item-text-wrap">{{event.description | characters: 50}}</div>
                 </ion-item>
             </a>
-        </ion-list>
+        </ion-list>-->
     </ion-content>
 </ion-view>
