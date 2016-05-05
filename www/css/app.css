@@ -130,6 +130,19 @@ div#slider {
     padding: 10px;
 }
 
+.headin-indent{
+    border-bottom:solid 1px;
+    border-bottom-color:#ddd;
+    padding-top:10px;
+    color:#ddd;
+    margin-right:-10px;
+}
+
+.headin-indent1{
+    margin-top:-10px;
+    margin-bottom:20px;
+}
+
 .odd {
     width: auto;
     height: 20%;

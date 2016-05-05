@@ -1,11 +1,17 @@
 <ion-view title="Hot Scoop" id="page1">
     <ion-content padding="true" class="has-header grad">
+        <div class="headin-indent headin-indent1">
+            Top Scoops
+        </div>
         <div class="top-header">
             <div class="top-header-item" ng-repeat="event in TopEvents">
                 <a ng-click="showDetails(event.id)">
                     <div ng-class-odd="'odd'" ng-class-even="'even'"></div>{{event.title | characters: 18}}
                 </a>
             </div>
+        </div>
+        <div class="headin-indent">
+            All Scoops
         </div>
         <div class="carousel-demo">
             <ul rn-carousel rn-carousel-transition="hexagon"
