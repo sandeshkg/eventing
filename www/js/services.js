@@ -1,79 +1,34 @@
-angular.module('app.services', ['ngStorage', 'ui-notification'])
+angular.module('app.services', ['ngStorage', 'ui-notification', 'firebase'])
 
-.factory('Events', ['$localStorage', '$http', 'Notification', function ($localStorage, $http, Notification) {
+.factory('Events', ['$localStorage', '$http', 'Notification', '$firebaseArray', function ($localStorage, $http, Notification, $firebaseArray) {
 
+    var events = $firebaseArray(new Firebase('https://boiling-fire-629.firebaseio.com/events'));
 
-    function CustomEvent(id, type, title, description, where, starttime, duration, image, sliderImageUrls) {
-        this.id = id;
-        this.type = type ? type : 'news';
-        this.title = title;
-        this.description = description;
-        this.where = where;
-        this.starttime = starttime;
-        this.duration = duration;
-        this.image = image;
-        this.sliderImageUrls = sliderImageUrls;
-    };
+    events.$loaded()
+    .then(function(x){
+      self.notifySubscribers();
+    });
 
-    var events = {};
-    this.loadEventsFromStorage = function () {
-
-        if ($localStorage.events) {
-            events = $localStorage.events;
-        }
-
-        //TODO:check the validity of the events, look for expiration policy
-
-    };
-
-    this.fetchNewEvents = function () {
-
-        $http.get('http://bulletin.us-west-2.elasticbeanstalk.com/api/Events/GetEventDetails')
-        .then(function (response) {
-            console.log('fetching from aws');
-            for (var i = 0; i < response.data.length; i++) {
-                Array.prototype.map.call(response.data,
-                  function (elem) {
-                      var evt = new CustomEvent(elem.id,
-                        elem.type,
-                        elem.title,
-                        elem.description,
-                        elem.venue,
-                        elem.startTime,
-                        elem.duration,
-                        elem.iconImageURL.split(',')[0],
-                        elem.iconImageURL.split(','));//elem.sliderImageUrls.split(','));
-                      events[elem.id] = evt;
-                  });
-            }
-
-            Notification.success('Latest events fetched succesfully !');
-        }
-         , function (response) {
-             console.log(response);
-         });
-
-    };
-
-    this.saveEventsToStorage = function () {
-        $localStorage.events = events;
-    };
-
-    this.loadEventsFromStorage();
-    this.fetchNewEvents();
-    this.saveEventsToStorage();
+    events.$watch(function(){
+      self.notifySubscribers();
+    });
 
     var self = this;
     self.notificationSubscribers = {};
-    /*self.awaitUpdate=function(key,callback){
-        self.notificationSubscribers[key]=callback;
-    };*/
+
     self.notifySubscribers = function () {
         angular.forEach(self.notificationSubscribers,
             function (callback, key) {
                 callback();
             });
     };
+
+    function getDetails(id){
+      for (var i = 0; i < events.length; i++) {
+        if(events[i].id == id)
+          return events[i];
+      };
+    }
 
     return {
         all: function () {
@@ -89,7 +44,7 @@ angular.module('app.services', ['ngStorage', 'ui-notification'])
                   startTime,
                   duration,
                   iconImageURL,
-                  sliderImageUrls.split(','));
+                  eventImages.split(','));
             events[id] = evt;
             self.notifySubscribers();
         },
@@ -97,7 +52,7 @@ angular.module('app.services', ['ngStorage', 'ui-notification'])
             self.notificationSubscribers[key] = callback;
         },
         getDetails: function (id) {
-            return events[id];
+            return getDetails(id);
         }
     };
 
