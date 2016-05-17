@@ -2,21 +2,100 @@ angular.module('app.services', ['ngStorage', 'ui-notification', 'firebase'])
 
 .factory('Events', ['$localStorage', '$http', 'Notification', '$firebaseArray', function ($localStorage, $http, Notification, $firebaseArray) {
 
-    var events = $firebaseArray(new Firebase('https://boiling-fire-629.firebaseio.com/events'));
-
-    events.$loaded()
-    .then(function(x){
-      self.notifySubscribers();
-    });
-
-    events.$watch(function(){
-      self.notifySubscribers();
-    });
-
+    var events = [];
     var self = this;
-    self.notificationSubscribers = {};
+    //var self = this;
+    var notificationSubscribers = {};
 
-    self.notifySubscribers = function () {
+    function CustomEvent(id, type, title, description, venue, startTime, duration, image, eventImages, showInSlider) {
+        this.id = id;
+        this.type = type ? type : 'news';
+        this.title = title;
+        this.description = description;
+        this.venue = venue;
+        this.startTime = startTime;
+        this.duration = duration;
+        this.image = image;
+        this.eventImages = eventImages;
+        this.showInSlider = showInSlider;
+    };
+
+    
+    this.loadEventsFromStorage = function () {
+
+        if ($localStorage.events) {
+            events = $localStorage.events;
+        }
+
+    };
+
+    this.fetchNewEvents = function () {
+
+        var updates = $firebaseArray(new Firebase('https://boiling-fire-629.firebaseio.com/events'));
+
+        updates.$loaded()
+        .then(function(response){
+            //console.log(response);
+
+            console.log('fetching from firebase');
+            for (var i = 0; i < response.length; i++) {
+                Array.prototype.map.call(response,
+                  function (elem) {
+                      /*var evt = new CustomEvent(elem.id,
+                        elem.type,
+                        elem.title,
+                        elem.description,
+                        elem.venue,
+                        elem.startTime,
+                        elem.duration,
+                        elem.mainImage,
+                        elem.eventImages.split(','),
+                        elem.showInSlider);//elem.sliderImageUrls.split(','));*/
+                      events[elem.id] = elem;
+                  });
+            }
+
+            console.log(events);
+
+
+            Notification.success('Latest events fetched succesfully !');
+
+            self.saveEventsToStorage();
+
+            self.notifySubscribers();
+        });
+
+        updates.$watch(function(){
+            for(var i=0; i < updates.length; i++){
+                /*events[updates[i].id] = new CustomEvent(updates[i].id,
+                        updates[i].type,
+                        updates[i].title,
+                        updates[i].description,
+                        updates[i].venue,
+                        updates[i].startTime,
+                        updates[i].duration,
+                        updates[i].mainImage,
+                        updates[i].eventImages.split(','),
+                        updates[i].showInSlider);*/
+                events[updates[i].id] = updates[i];
+                console.log(updates[i]);
+            };
+            self.saveEventsToStorage();
+            self.notifySubscribers();
+        });
+
+    };
+
+    this.saveEventsToStorage = function () {
+        $localStorage.events = events;
+    };
+
+    this.loadEventsFromStorage();
+    this.fetchNewEvents();
+    this.saveEventsToStorage();
+
+    
+    this.notifySubscribers = function () {
         angular.forEach(self.notificationSubscribers,
             function (callback, key) {
                 callback();
@@ -24,10 +103,14 @@ angular.module('app.services', ['ngStorage', 'ui-notification', 'firebase'])
     };
 
     function getDetails(id){
-      for (var i = 0; i < events.length; i++) {
-        if(events[i].id == id)
-          return events[i];
-      };
+        var result;
+        angular.forEach(events,
+            function(value, key) {
+                if(id == value.id){
+                    result = value;
+                }
+            });
+        return result;
     }
 
     return {
@@ -46,10 +129,10 @@ angular.module('app.services', ['ngStorage', 'ui-notification', 'firebase'])
                   iconImageURL,
                   eventImages.split(','));
             events[id] = evt;
-            self.notifySubscribers();
+            notifySubscribers();
         },
         awaitUpdate: function (key, callback) {
-            self.notificationSubscribers[key] = callback;
+            notificationSubscribers[key] = callback;
         },
         getDetails: function (id) {
             return getDetails(id);

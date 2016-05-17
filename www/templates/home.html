@@ -1,53 +1,49 @@
 <ion-view title="Hot Scoop" id="page1">
     <ion-content padding="true" class="has-header grad">
-        <div ng-if="events.length > 0">
-            <div ng-if="topEvents.length > 0">
-                <div class="headin-indent headin-indent1">
-                    Top Scoops
-                </div>
-                <div class="top-header">
-                    <div class="top-header-item-{{topEvents.length}}" ng-repeat="event in topEvents">
-                        <a ng-click="showDetails(event.id)">
-                            <div ng-class-odd="'odd'" ng-class-even="'even'"></div>{{event.title | characters: 18}}
-                        </a>
+        
+        <div ng-if="slider.length > 0">
+            <!-- banner -->
+            <div class="banner">
+                <div class="banner-info">
+                    <div class="container">
+                        <!--banner-Slider-->
+                            <div  id="top" class="callbacks_container">
+                                <ul class="rslides" id="slider3">
+                                    <li ng-repeat="event in slider">
+                                        <div class="banner-info-slider">
+                                            <ul>
+                                                <li><a href="single.html">{{event.type}}</a></li>
+                                                <li>{{event.startTime | date}}</li>
+                                            </ul>
+                                            <h1>{{event.title | characters : 25}}</h1>
+                                            <p>{{event.description | characters : 50}}<span>By <i>Sandesh</i> and <i>Sandesh</i></span></p>
+                                            <div class="more">
+                                                <a ng-click="showDetails(event.id)" class="type-1">
+                                                    <span> Read More </span>
+                                                    <span> Read More </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
                     </div>
                 </div>
             </div>
-            <div class="headin-indent">
-                All Scoops
-            </div>
-            <div>
-            <!--<div class="carousel-demo">
-                <!--<ul rn-carousel rn-carousel-transition="hexagon"
-                    rn-carousel-index="carouselIndex3" rn-carousel-buffered class="carousel3">
-                    <li ng-repeat="slide in slider track by slide.id" ng-class="'id-' + slide.id">
-                        <a ng-click="showDetails(slide.id)">
-                            <div ng-style="{'background-image': 'url(' + slide.img + ')'}" class="bgimage">
-                            </div>
-                            <div class="slider-text">
-                                <h2 style="color: #988888;">{{slide.title}}</h2>
-                                <div class="item-text-wrap" ng-if="slide.startTime">{{slide.startTime | date}}</div>
-                                <div class="item-text-wrap" ng-if="slide.venue">{{slide.venue}}</div>
-                                <div class="item-text-wrap">{{slide.description | characters: 50}}</div>
-                            </div>
-                        </a>
-                    </li>
-                </ul> -->
-                <ks-swiper-container initial-slide="0" speed="2000" loop="flase" show-nav-buttons="false" slides-per-view="1" space-between="5" pagination-clickable="false" override-parameters="{effect: 'coverflow',coverflow: {rotate: 50,stretch: 0,depth: 100,modifier: 1,slideShadows : false}}">
-                    <ks-swiper-slide class="swiper-slide" ng-repeat="slide in slider">
-                        <a ng-click="showDetails(slide.id)">
-                            <img src="{{slide.image}}" width="100%">
-                             <div class="slider-text">
-                                <h2 style="color: #988888;">{{slide.title}}</h2>
-                                <div class="item-text-wrap" ng-if="slide.startTime">{{slide.startTime | date}}</div>
-                                <div class="item-text-wrap" ng-if="slide.venue">{{slide.venue}}</div>
-                                <div class="item-text-wrap">{{slide.description | characters: 50}}</div>
-                            </div>
-                        </a>
-                    </ks-swiper-slide>            
-                </ks-swiper-container>
+            <!-- banner -->
+        </div>
+        <div class="col-md-4 col-sm-6" ng-repeat="evt in events">
+            <div class="service-wrapper">
+                <h3>{{evt.title}}</h3>                  
+                <img class="full-image" src="img/portfolio/notice.jpg">
+                <p>{{evt.description | characters : 50}}</p>
+                <p>
+                  <a class="btn" ng-click="showDetails(evt.id)" class="subdued">More</a>
+                </p>
+             
             </div>
         </div>
+        
         <div class="card" ng-if="events.length == 0">
             <div class="item-body">
                 <div class="item item-avatar">

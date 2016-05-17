@@ -28,11 +28,12 @@ a {
 }
 
 .grad {
-    background: #1976D2; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(top right, #1976D2, #81C784); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(bottom right, #1976D2, #81C784); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(bottom right, #1976D2, #81C784); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#1976D2, #81C784); /* Standard syntax */
+
+
+background: #ECE9E6; /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #ECE9E6 , #FFFFFF); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #ECE9E6 , #FFFFFF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        
 }
 
 .top-header {
@@ -187,4 +188,44 @@ div#slider {
     height: 20%;
     background: rgba(0, 0, 255, 0.63);
     top: 80px;
+}
+
+.service-wrapper {
+    text-align: center;
+    -webkit-background-clip: padding-box;
+    box-shadow: rgb(153, 153, 153) 0px 0px 3px;
+    background: padding-box rgb(255, 255, 255);
+    margin: 20px 10px;
+    padding: 30px 20px;
+    border-radius: 5px;
+}
+
+.btn {
+    -webkit-background-clip: padding-box;
+    cursor: pointer;
+    display: inline-block;
+    text-transform: none;
+    text-align: center;
+    text-shadow: none;
+    box-shadow: none;
+    color: rgb(255, 255, 255);
+    white-space: nowrap;
+    border: 1px solid rgb(79, 141, 179);
+    border-radius: 2px;
+    transition: all 0.25s ease;
+    background: none 0px 0px repeat scroll rgb(79, 141, 179);
+}
+
+.app-header {
+    background: #373737;
+    color: #cfcfcf;
+    height: 45px;
+    padding-left: 30px;
+    padding-top: 2px;
+    border-bottom: 2px solid #000;
+    box-shadow: 0 2px 2px 2px rgba(255,255,255,0.8);
+}
+
+.side-menu-left {
+    overflow-y : hidden;
 }

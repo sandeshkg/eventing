@@ -10,13 +10,13 @@
                 <img ng-if="type == 'news'" src="img/news-128x128.png">
                 <img ng-if="type == 'todo'" src="img/todo-64x64.ico">
                 <h2 class="">{{title}}</h2>
-                <p ng-if="startTime">When : {{startTime}}</p>
-                <p ng-if="venue">Where {{venue}}</p>
+                <p ng-if="startTime">{{startTime}}</p>
+                <p ng-if="venue">{{venue}}</p>
             </div>
             <div class="item-body">
-                <div id="slider" ng-show="{{eventImages.length > 1}}">
+                <div id="slider" ng-if="eventImages.length > 1">
                     <figure>
-                        <img ng-repeat="image in eventImages" src="{{url}}">
+                        <img ng-repeat="image in eventImages" src="{{image}}">
                     </figure>
                 </div>
                 <div ng-show="{{eventImages.length == 1}}">
