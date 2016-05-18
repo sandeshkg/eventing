@@ -2,6 +2,7 @@ angular.module('app.controllers', ['truncate'])
 
 .controller('homeCtrl', ['$scope', 'Events', '$state', '$timeout', function ($scope, Events, $state, $timeout) {
     
+    $scope.sliderSetup = false;
     $scope.events = Events.all();
     postUpdate();
 
@@ -18,6 +19,9 @@ angular.module('app.controllers', ['truncate'])
 
     function postUpdate(){
     	$scope.slider = [];
+
+
+        if($scope.sliderSetup || !$scope.events || $scope.events.length <= 1) return;//There are no events
 
 	    angular.forEach($scope.events, function (value, key) {
             if(value.showInSlider) {

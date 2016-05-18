@@ -2,10 +2,10 @@ angular.module('app.services', ['ngStorage', 'ui-notification', 'firebase'])
 
 .factory('Events', ['$localStorage', '$http', 'Notification', '$firebaseArray', function ($localStorage, $http, Notification, $firebaseArray) {
 
-    var events = [];
+    var events = {};
     var self = this;
     //var self = this;
-    var notificationSubscribers = {};
+    this.notificationSubscribers = {};
 
     function CustomEvent(id, type, title, description, venue, startTime, duration, image, eventImages, showInSlider) {
         this.id = id;
@@ -55,7 +55,7 @@ angular.module('app.services', ['ngStorage', 'ui-notification', 'firebase'])
                   });
             }
 
-            console.log(events);
+            //console.log(events);
 
 
             Notification.success('Latest events fetched succesfully !');
@@ -87,7 +87,9 @@ angular.module('app.services', ['ngStorage', 'ui-notification', 'firebase'])
     };
 
     this.saveEventsToStorage = function () {
-        $localStorage.events = events;
+        if(events && events.length > 0){
+            $localStorage.events = events;
+        }
     };
 
     this.loadEventsFromStorage();
@@ -132,7 +134,7 @@ angular.module('app.services', ['ngStorage', 'ui-notification', 'firebase'])
             notifySubscribers();
         },
         awaitUpdate: function (key, callback) {
-            notificationSubscribers[key] = callback;
+            self.notificationSubscribers[key] = callback;
         },
         getDetails: function (id) {
             return getDetails(id);
