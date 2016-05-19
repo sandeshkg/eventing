@@ -8,7 +8,7 @@ angular.module('app.controllers', ['truncate'])
 
     $scope.showDetails = function (eventId) {
         $state.go('menu.details', { 'id': eventId });
-        console.log('Show details' + eventId);
+        //console.log('Show details' + eventId);
     };
 
     Events.awaitUpdate('homeCtrl', function () {        
@@ -21,7 +21,7 @@ angular.module('app.controllers', ['truncate'])
     	$scope.slider = [];
 
 
-        if($scope.sliderSetup || !$scope.events || $scope.events.length <= 1) return;//There are no events
+        if(!$scope.events || $scope.events.length <= 1) return;//There are no events
 
 	    angular.forEach($scope.events, function (value, key) {
             if(value.showInSlider) {
@@ -44,9 +44,12 @@ angular.module('app.controllers', ['truncate'])
 	        $scope.topEvents.push($scope.slider[i]);
 	    };*/
 
-        $timeout(function(){
-            setUpSlides();
-        }, 200);
+        if(!$scope.sliderSetup){
+            //$scope.sliderSetup = true;
+            $timeout(function(){
+                setUpSlides();
+            }, 200);
+        };
     };
 
     function setUpSlides(){
