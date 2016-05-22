@@ -16,11 +16,11 @@
             <div class="item-body">
                 <div id="slider" ng-if="eventImages.length > 1">
                     <figure>
-                        <img ng-repeat="image in eventImages" src="{{image}}">
+                        <img ng-repeat="image in eventImages" ng-src="{{image}}">
                     </figure>
                 </div>
                 <div ng-show="{{eventImages.length == 1}}">
-                    <img class="full-image" src="{{eventImages[0]}}">
+                    <img class="full-image" ng-src="{{eventImages[0]}}">
                 </div>
                 <p>    {{description}}</p>
             </div>

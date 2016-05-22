@@ -1,23 +1,24 @@
 <ion-view title="Hot Scoop" id="page1">
     <ion-content padding="true" class="has-header grad">
         
-        <div ng-if="slider.length > 0">
+        <div ng-if="slider">
             <!-- banner -->
             <div class="banner">
+            <ion-slide-box auto-play="true" does-continue="true">
+                          <ion-slide ng-repeat="event in slider">
                 <div class="banner-info">
                     <div class="container">
                         <!--banner-Slider-->
-                            <div  id="top" class="callbacks_container">
-                                <ul class="rslides" id="slider3">
-                                    <li ng-repeat="event in slider">
-                                        <div class="banner-info-slider">
+                        
+                            <div class="banner-info-slider">
                                             <ul>
                                                 <li><a ng-click="showDetails(event.id)">{{event.type}}</a></li>
                                                 <li>{{event.startTime}}</li>
                                             </ul>
                                             <h1>{{event.title | characters : 25}}</h1>
-                                            <p>{{event.description | characters : 50}}<span ng-if="event.conductedBy2">By <i>{{event.conductedBy1}}}</i> and <i>{{event.conductedBy2}}</i></span>
-                                            <span ng-if="event.conductedBy1">By <i>{{event.conductedBy1}}</i></span>
+                                            <p>{{event.description | characters : 50}}
+                                            <span ng-if="event.conductedBy2">By <i>{{event.conductedBy1}}</i> and <i>{{event.conductedBy2}}</i></span>
+                                            <span ng-if="event.conductedBy1 && !event.conductedBy2">By <i>{{event.conductedBy1}}</i></span>
                                             </p>
                                             <div class="more">
                                                 <a ng-click="showDetails(event.id)" class="type-1">
@@ -26,11 +27,18 @@
                                                 </a>
                                             </div>
                                         </div>
+                          
+                            <!-- <div  id="top" class="callbacks_container">
+                                <ul class="rslides" id="slider3">
+                                    <li ng-repeat="event in slider">
+                                        
                                     </li>
                                 </ul>
-                            </div>
+                            </div> -->
                     </div>
                 </div>
+                </ion-slide>
+                        </ion-slide-box>
             </div>
             <!-- banner -->
         </div>

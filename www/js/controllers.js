@@ -2,6 +2,7 @@ angular.module('app.controllers', ['truncate'])
 
 .controller('homeCtrl', ['$scope', 'Events', '$state', '$timeout', function ($scope, Events, $state, $timeout) {
     
+    
     $scope.sliderSetup = false;
     $scope.events = Events.all();
     postUpdate();
@@ -18,14 +19,13 @@ angular.module('app.controllers', ['truncate'])
 
 
     function postUpdate(){
-    	$scope.slider = [];
-
-
+    	//$scope.slider.splice(0, $scope.slider.length);
+        $scope.slider = {};
         if(!$scope.events || $scope.events.length <= 1) return;//There are no events
 
 	    angular.forEach($scope.events, function (value, key) {
             if(value.showInSlider) {
-    	        $scope.slider.push({
+    	        $scope.slider[value.id] = {
     	            id: value.id,
     	            //label: 'slide #' + value.id,
     	            //image: (value.images && value.images.indexOf(',') ? value.images.split(',') : value.images),
@@ -33,10 +33,14 @@ angular.module('app.controllers', ['truncate'])
     	            venue: value.venue,
     	            description: value.description,
     	            title: value.title,
-                    type : value.type
-    	        });
+                    type : value.type,
+                    conductedBy1 : value.conductedBy1,
+                    conductedBy2 : value.conductedBy2
+    	        };
             }
 	    });
+
+        //$scope.$apply();
 
 	    /*$scope.topEvents = [];
 
@@ -46,13 +50,19 @@ angular.module('app.controllers', ['truncate'])
 
         if(!$scope.sliderSetup){
             //$scope.sliderSetup = true;
-            $timeout(function(){
-                setUpSlides();
-            }, 200);
+            //$timeout(function(){
+                //setUpSlides();
+            //}, 10);
         };
     };
 
     function setUpSlides(){
+
+        //$('#slider3').remove("li [pager]");
+
+        /*$('#slider3').children().each(function(){
+            $(this).removeClass().unbind();
+        });*/
 
         $("#slider3").responsiveSlides({
                             auto: true,
@@ -74,7 +84,34 @@ angular.module('app.controllers', ['truncate'])
 
 }])
 
-.controller('loginCtrl', ['$scope', 'signUpService', '$state', function ($scope, signUpService, $state) {
+.controller('authCtrl', ['$scope','AuthService'], function($scope, AuthService){
+    Auth.$createUser({
+        email: $scope.email,
+        password: generatePass()
+      }).then(function(userData) {
+        $scope.message = "User created with uid: " + userData.uid;
+        AuthService.resetPassword();
+      }).catch(function(error) {
+        $scope.error = error;
+      });
+
+      // temporary password times!
+    function generatePass() {
+      var chars = "0123456789abcdefghijklmnopqrstuvwxyz-ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      var pass = "";
+
+      for (let i = 0; i < 32; i++) {
+        pass += chars[Math.floor(Math.random() * chars.length)];
+      }
+
+      return pass;
+    }
+
+
+
+
+    })
+/*.controller('loginCtrl', ['$scope', 'signUpService', '$state', function ($scope, signUpService, $state) {
     $scope.login = { email: "" };
     $scope.loginApp = function () {
 
@@ -106,7 +143,7 @@ angular.module('app.controllers', ['truncate'])
 			})
         }
     }
-}])
+}])*/
 
 .controller('detailsCtrl', ['$scope', '$stateParams', 'Events', function ($scope, $stateParams, Events) {
 

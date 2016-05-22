@@ -37,7 +37,7 @@ angular.module('app.services', ['ngStorage', 'ui-notification', 'firebase'])
         .then(function(response){
             //console.log(response);
 
-            console.log('fetching from firebase');
+            //console.log('fetching from firebase');
             for (var i = 0; i < response.length; i++) {
                 Array.prototype.map.call(response,
                   function (elem) {
@@ -78,7 +78,7 @@ angular.module('app.services', ['ngStorage', 'ui-notification', 'firebase'])
                         updates[i].eventImages.split(','),
                         updates[i].showInSlider);*/
                 events[updates[i].id] = updates[i];
-                console.log(updates[i]);
+                //console.log(updates[i]);
             };
             self.saveEventsToStorage();
             self.notifySubscribers();
@@ -143,7 +143,7 @@ angular.module('app.services', ['ngStorage', 'ui-notification', 'firebase'])
 
 }])
 
-.factory('signUpService', ['$http', '$q', '$timeout', function ($http, $q, $timeout) {
+/*.factory('signUpService', ['$http', '$q', '$timeout', function ($http, $q, $timeout) {
     return {
 
         sendMail: sendMail,
@@ -181,7 +181,13 @@ angular.module('app.services', ['ngStorage', 'ui-notification', 'firebase'])
         return deferred.promise;
 
     };
+}])*/
+
+.factory('AuthService', ['$firebaseAuth', function($firebaseAuth){
+    var ref = new Firebase('https://boiling-fire-629.firebaseio.com');
+    return $firebaseAuth(ref);
 }])
+
 .filter('split', function () {
     return function (input, splitChar, splitIndex) {
         // do some bounds checking here to ensure it has that index
