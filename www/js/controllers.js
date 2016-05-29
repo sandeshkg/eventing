@@ -48,12 +48,12 @@ angular.module('app.controllers', ['truncate'])
 	        $scope.topEvents.push($scope.slider[i]);
 	    };*/
 
-        if(!$scope.sliderSetup){
+        //if(!$scope.sliderSetup){
             //$scope.sliderSetup = true;
-            //$timeout(function(){
-                //setUpSlides();
-            //}, 10);
-        };
+            $timeout(function(){
+                setUpSlides();
+            }, 10);
+        //};
     };
 
     function setUpSlides(){
