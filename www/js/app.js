@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives'])
 
-.run(function($ionicPlatform, Events) {
+.run(function($ionicPlatform, Events, $rootScope, $location) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -59,6 +59,17 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
   window.plugins.OneSignal.enableInAppAlertNotification(true);
 
   });
+
+
+  $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
+        // We can catch the error thrown when the $requireAuth promise is rejected
+        // and redirect the user back to the home page
+        console.log("AUTH_REQUIRED");
+        event.preventDefault();
+        if (error === "AUTH_REQUIRED") {
+            $location.path("/login");
+        }
+    });
 })
 .filter('datetime', function($filter)
 {

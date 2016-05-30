@@ -84,19 +84,99 @@ angular.module('app.controllers', ['truncate'])
 
 }])
 
-.controller('authCtrl', ['$scope','AuthService'], function($scope, AuthService){
-    Auth.$createUser({
-        email: $scope.email,
-        password: generatePass()
-      }).then(function(userData) {
-        $scope.message = "User created with uid: " + userData.uid;
-        AuthService.resetPassword();
-      }).catch(function(error) {
-        $scope.error = error;
-      });
+.controller('LoginCtrl', function ($scope, $ionicModal, $state, $firebaseAuth, $ionicLoading, $rootScope, AuthService) {
+    //console.log('Login Controller Initialized');
 
-      // temporary password times!
+    var ref = new Firebase("https://boiling-fire-629.firebaseio.com");
+    
+    $ionicModal.fromTemplateUrl('templates/signup.html', {
+        scope: $scope
+    }).then(function (modal) {
+        $scope.modal = modal;
+    });
+
+    $scope.createUser = function (user) {
+        console.log("Create User Function called");
+        if (user && user.email && user.displayname) {
+            $ionicLoading.show({
+                template: 'Signing Up...'
+            });
+
+            AuthService.$createUser({
+                email: user.email,
+                password: generatePass()
+            }).then(function (userData) {
+                alert("User created successfully!");
+                AuthService.$resetPassword({ "email" : $scope.credential.email })
+                .then(function(){
+                    //Send email in params
+                    //$state.go('menu.password');
+                    ref.child("users").child(userData.uid).set({
+                        email: user.email,
+                        displayName: user.displayname
+                    });
+                    
+                    $ionicLoading.hide();
+                    $scope.modal.hide();
+
+                })
+                .catch(function(error){
+                    $scope.error = error;
+                    console.log("Error Sending Password Reset :" +error);
+                });
+                
+                
+            }).catch(function (error) {
+                alert("Error: " + error);
+                $ionicLoading.hide();
+            });
+        } else
+            alert("Please fill all details");
+    }
+
+    $scope.signIn = function (user) {
+
+        if (user && user.email && user.password) {
+            $ionicLoading.show({
+                template: 'Signing In...'
+            });
+            AuthService.$authWithPassword({
+                email: user.email,
+                password: user.password
+            }).then(function (authData) {
+                console.log("Logged in as:" + authData.uid);
+
+                ref.child("users").child(authData.uid).once('value', function (snapshot) {
+                    var val = snapshot.val();
+                    // To Update AngularJS $scope either use $apply or $timeout
+                    $scope.$apply(function () {
+                        $rootScope.displayName = val;
+                    });
+                });
+                $ionicLoading.hide();
+                $state.go('tab.rooms');
+            }).catch(function (error) {
+                alert("Authentication failed:" + error.message);
+                $ionicLoading.hide();
+            });
+        } else
+            alert("Please enter email and password both");
+    }
+
+    $scope.resetPwd = function(){
+        AuthService.$resetPassword({ "email" : $scope.credential.email })
+        .then(function(resp) {
+            //Send email in params
+            //$state.go('menu.password');
+        })
+        .catch(function(error) {
+            $scope.error = error;
+            console.log("Error Sending Password Reset :" +error);
+        });
+    }
+
     function generatePass() {
+        "use strict";
       var chars = "0123456789abcdefghijklmnopqrstuvwxyz-ABCDEFGHIJKLMNOPQRSTUVWXYZ";
       var pass = "";
 
@@ -108,9 +188,85 @@ angular.module('app.controllers', ['truncate'])
     }
 
 
+})
 
 
-    })
+
+
+
+.controller('loginCtrl', ['$scope','AuthService', function($scope, AuthService){
+    $scope.credential = { email : ""};
+    $scope.createUser = function(){
+
+        AuthService.$createUser({
+            email: $scope.credential.email,
+            password: generatePass()
+        })
+        .then(function(userData) {
+            console.log("User created with uid: " + userData.uid);
+            AuthService.$resetPassword({ "email" : $scope.credential.email })
+            .then(function(){
+                //Send email in params
+                $state.go('menu.password');
+            })
+            .catch(function(error){
+                $scope.error = error;
+                console.log("Error Sending Password Reset :" +error);
+            })
+        })
+        .catch(function(error) {
+            $scope.error = error;
+            console.log("Error creating user :" +error);
+        });
+    }
+
+      // temporary password times!
+    function generatePass() {
+        "use strict";
+      var chars = "0123456789abcdefghijklmnopqrstuvwxyz-ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      var pass = "";
+
+      for (let i = 0; i < 32; i++) {
+        pass += chars[Math.floor(Math.random() * chars.length)];
+      }
+
+      return pass;
+    }
+
+}])
+
+.controller('forgotCtrl', ['$scope', '$stateParams', 'AuthService', function($scope, $stateParams, AuthService){
+    $scope.credential = { email : ""};
+    $scope.forgot = function(){
+        AuthService.$resetPassword({ "email" : $scope.credential.email })
+        .then(function(resp) {
+            //Send email in params
+            $state.go('menu.password');
+        })
+        .catch(function(error) {
+            $scope.error = error;
+            console.log("Error Sending Password Reset :" +error);
+        });
+    }
+}])
+
+.controller('passwordCtrl', ['$scope', '$stateParams', 'AuthService', function($scope, $stateParams, AuthService){
+    $scope.credential = { email : "", password: ""};
+    $scope.login = function(){
+        AuthService.$authWithPassword({ 
+            "email" : $scope.credential.email,
+            "password" : $scope.credential.password 
+        })
+        .then(function(resp) {
+            //Send email in params
+            $state.go('menu.home');
+        })
+        .catch(function(error) {
+            $scope.error = error;
+            console.log("Error during Login :" +error);
+        });
+    }
+}])
 /*.controller('loginCtrl', ['$scope', 'signUpService', '$state', function ($scope, signUpService, $state) {
     $scope.login = { email: "" };
     $scope.loginApp = function () {

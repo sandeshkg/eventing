@@ -12,7 +12,15 @@ angular.module('app.routes', [])
     views: {
       'menu': {
         templateUrl: 'templates/home.html',
-        controller: 'homeCtrl'
+        controller: 'homeCtrl',
+        resolve: {
+          // controller will not be loaded until $waitForAuth resolves
+          // Auth refers to our $firebaseAuth wrapper in the example above
+          "currentAuth": ["AuthService", function(AuthService) {
+            // $waitForAuth returns a promise so the resolve waits for it to complete
+            return AuthService.$requireAuth();
+          }]
+        }
       }
     }
   })
@@ -32,7 +40,7 @@ angular.module('app.routes', [])
     views: {
       'menu': {
         templateUrl: 'templates/login.html',
-        controller: 'loginCtrl'
+        controller: 'LoginCtrl'
       }
     }
   })
@@ -42,7 +50,27 @@ angular.module('app.routes', [])
     views: {
       'menu': {
         templateUrl: 'templates/signup.html',
-        controller: 'signUpCtrl'
+        controller: 'LoginCtrl'
+      }
+    }
+  })
+
+  .state('menu.password', {
+    url: '/password',
+    views: {
+      'menu': {
+        templateUrl: 'templates/password.html',
+        controller: 'passwordCtrl'
+      }
+    }
+  })
+
+  .state('menu.forgotpwd', {
+    url: '/forgotpwd',
+    views: {
+      'menu': {
+        templateUrl: 'templates/forgotpassword.html',
+        controller: 'forgotPwdCtrl'
       }
     }
   })
@@ -52,21 +80,18 @@ angular.module('app.routes', [])
     views: {
       'menu': {
         templateUrl: 'templates/details.html',
-        controller: 'detailsCtrl'
+        controller: 'detailsCtrl',
+        resolve: {
+          // controller will not be loaded until $waitForAuth resolves
+          // Auth refers to our $firebaseAuth wrapper in the example above
+          "currentAuth": ["AuthService", function(AuthService) {
+            // $waitForAuth returns a promise so the resolve waits for it to complete
+            return AuthService.$requireAuth();
+          }]
+        }
       }
     }
   })
-
-
-  /*.state('menu.details', {
-    url: '/details',
-    views: {
-      'details': {
-        templateUrl: 'templates/details.html',
-        controller: 'detailsCtrl'
-      }
-    }
-  })*/
 
   .state('menu', {
     url: '',

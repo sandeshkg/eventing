@@ -1,13 +1,43 @@
-<ion-view title="Register" id="page2">
+<ion-view view-title="Login">
+    <ion-content class="padding">
+        <div class="list">
+            <img src="img/hi-there.png" class="logo">
+            <div class="logoText">
+                Bulletin
+            </div>
+        </div>
+        <div class="list card padding">
+            <label class="item item-input">
+                <span class="input-label">Email</span>
+                <input type="text" ng-model="user.email">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Password</span>
+                <input type="password" ng-model="user.password">
+            </label>
+            <button ng-click="signIn(user)" class="button button-block button-positive activated">
+                Sign In
+            </button>
+        </div>
+        <div class="list" style="text-align:center">
+            <button ng-click="modal.show()" class="button button-small button-outline icon-left ion-person-add button-positive">
+                Create New Account
+            </button>
+        </div>
+    </ion-content>
+</ion-view>
+
+<!-- <ion-view title="Register" id="page2">
     <ion-content padding="true" class="has-header">
       <div class="list">
         <br/>
         <br/>
         <span class="input-label" style="white-space:nowrap">Hope you have a company provided em@il</span>
         <br/>
-        <input type="email" placeholder="you@company.com" ng-model="login.email">
+        <input type="email" placeholder="you@company.com" ng-model="credential.email">
         <br/><br/>
-        <button class="button button-medium button-balanced" ng-click="loginApp()">Register</button>
+        <a href="">Forgot Password</a>
+        <button class="button button-medium button-balanced" ng-click="createUser()">Register</button>
       </div>
     </ion-content>
-</ion-view>
+</ion-view> -->
