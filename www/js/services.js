@@ -1,11 +1,12 @@
 angular.module('app.services', ['ngStorage', 'ui-notification', 'firebase'])
 
-.factory('Events', ['$localStorage', '$http', 'Notification', '$firebaseArray', function ($localStorage, $http, Notification, $firebaseArray) {
+.factory('Events', ['$localStorage', '$http', 'Notification', '$firebaseArray', '$state', '$ionicHistory', function ($localStorage, $http, Notification, $firebaseArray, $state, $ionicHistory) {
 
     var events = {};
     var self = this;
     //var self = this;
     this.notificationSubscribers = {};
+    var ref = new Firebase('https://boiling-fire-629.firebaseio.com');
 
     function CustomEvent(id, type, title, description, venue, startTime, duration, image, eventImages, showInSlider) {
         this.id = id;
@@ -63,6 +64,15 @@ angular.module('app.services', ['ngStorage', 'ui-notification', 'firebase'])
             self.saveEventsToStorage();
 
             self.notifySubscribers();
+        },
+        function(err){
+            console.log(err);
+            if(err.code =='PERMISSION_DENIED'){
+                $ionicHistory.nextViewOptions({
+                    disableBack: true
+                  });
+                $state.go('menu.login');
+            }
         });
 
         updates.$watch(function(){
@@ -92,9 +102,11 @@ angular.module('app.services', ['ngStorage', 'ui-notification', 'firebase'])
         }
     };
 
-    this.loadEventsFromStorage();
-    this.fetchNewEvents();
-    this.saveEventsToStorage();
+    ref.onAuth(function(){
+        self.loadEventsFromStorage();
+        self.fetchNewEvents();
+        self.saveEventsToStorage();
+    });   
 
     
     this.notifySubscribers = function () {

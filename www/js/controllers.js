@@ -84,16 +84,16 @@ angular.module('app.controllers', ['truncate'])
 
 }])
 
-.controller('LoginCtrl', function ($scope, $ionicModal, $state, $firebaseAuth, $ionicLoading, $rootScope, AuthService) {
+.controller('LoginCtrl', function ($scope, $ionicModal, $state, $firebaseAuth, $ionicLoading, $rootScope, AuthService, $ionicHistory) {
     //console.log('Login Controller Initialized');
 
     var ref = new Firebase("https://boiling-fire-629.firebaseio.com");
     
-    $ionicModal.fromTemplateUrl('templates/signup.html', {
+    /*$ionicModal.fromTemplateUrl('templates/signup.html', {
         scope: $scope
     }).then(function (modal) {
         $scope.modal = modal;
-    });
+    });*/
 
     $scope.createUser = function (user) {
         console.log("Create User Function called");
@@ -107,7 +107,7 @@ angular.module('app.controllers', ['truncate'])
                 password: generatePass()
             }).then(function (userData) {
                 alert("User created successfully!");
-                AuthService.$resetPassword({ "email" : $scope.credential.email })
+                AuthService.$resetPassword({ "email" : user.email })
                 .then(function(){
                     //Send email in params
                     //$state.go('menu.password');
@@ -117,7 +117,8 @@ angular.module('app.controllers', ['truncate'])
                     });
                     
                     $ionicLoading.hide();
-                    $scope.modal.hide();
+                    //$scope.modal.hide();
+                    $scope.gotoLogin();
 
                 })
                 .catch(function(error){
@@ -154,7 +155,12 @@ angular.module('app.controllers', ['truncate'])
                     });
                 });
                 $ionicLoading.hide();
-                $state.go('tab.rooms');
+                $ionicHistory.nextViewOptions({
+                    disableBack: true
+                  });
+
+                $scope.gotoHome();
+                //$state.go('tab.rooms');
             }).catch(function (error) {
                 alert("Authentication failed:" + error.message);
                 $ionicLoading.hide();
@@ -185,6 +191,19 @@ angular.module('app.controllers', ['truncate'])
       }
 
       return pass;
+    }
+
+    $scope.gotoCreateAcct = function(){
+        $state.go('menu.signup');
+    }
+
+    $scope.gotoLogin = function(){
+        $state.go('menu.login');
+    }
+
+    $scope.gotoHome = function(){
+
+        $state.go('menu.home');
     }
 
 
