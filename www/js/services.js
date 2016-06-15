@@ -1,12 +1,12 @@
 angular.module('app.services', ['ngStorage', 'ui-notification', 'firebase'])
 
-.factory('Events', ['$localStorage', '$http', 'Notification', '$firebaseArray', '$state', '$ionicHistory', function ($localStorage, $http, Notification, $firebaseArray, $state, $ionicHistory) {
+.factory('Events', ['$localStorage', '$http', 'Notification', '$firebaseArray', '$state', '$ionicHistory', '$firebaseAuth', function ($localStorage, $http, Notification, $firebaseArray, $state, $ionicHistory, $firebaseAuth) {
 
     var events = {};
     var self = this;
     //var self = this;
     this.notificationSubscribers = {};
-    var ref = new Firebase('https://boiling-fire-629.firebaseio.com');
+    //var ref = new Firebase('https://boiling-fire-629.firebaseio.com');
 
     function CustomEvent(id, type, title, description, venue, startTime, duration, image, eventImages, showInSlider) {
         this.id = id;
@@ -32,7 +32,7 @@ angular.module('app.services', ['ngStorage', 'ui-notification', 'firebase'])
 
     this.fetchNewEvents = function () {
 
-        var updates = $firebaseArray(new Firebase('https://boiling-fire-629.firebaseio.com/events'));
+        var updates = $firebaseArray(firebase.database().ref());
 
         updates.$loaded()
         .then(function(response){
@@ -42,27 +42,14 @@ angular.module('app.services', ['ngStorage', 'ui-notification', 'firebase'])
             for (var i = 0; i < response.length; i++) {
                 Array.prototype.map.call(response,
                   function (elem) {
-                      /*var evt = new CustomEvent(elem.id,
-                        elem.type,
-                        elem.title,
-                        elem.description,
-                        elem.venue,
-                        elem.startTime,
-                        elem.duration,
-                        elem.mainImage,
-                        elem.eventImages.split(','),
-                        elem.showInSlider);//elem.sliderImageUrls.split(','));*/
                       events[elem.id] = elem;
                   });
             }
 
             //console.log(events);
 
-
             Notification.success('Latest events fetched succesfully !');
-
             self.saveEventsToStorage();
-
             self.notifySubscribers();
         },
         function(err){
@@ -77,16 +64,6 @@ angular.module('app.services', ['ngStorage', 'ui-notification', 'firebase'])
 
         updates.$watch(function(){
             for(var i=0; i < updates.length; i++){
-                /*events[updates[i].id] = new CustomEvent(updates[i].id,
-                        updates[i].type,
-                        updates[i].title,
-                        updates[i].description,
-                        updates[i].venue,
-                        updates[i].startTime,
-                        updates[i].duration,
-                        updates[i].mainImage,
-                        updates[i].eventImages.split(','),
-                        updates[i].showInSlider);*/
                 events[updates[i].id] = updates[i];
                 //console.log(updates[i]);
             };
@@ -102,7 +79,7 @@ angular.module('app.services', ['ngStorage', 'ui-notification', 'firebase'])
         }
     };
 
-    ref.onAuth(function(){
+    $firebaseAuth().$onAuthStateChanged(function(){
         self.loadEventsFromStorage();
         self.fetchNewEvents();
         self.saveEventsToStorage();
@@ -155,49 +132,10 @@ angular.module('app.services', ['ngStorage', 'ui-notification', 'firebase'])
 
 }])
 
-/*.factory('signUpService', ['$http', '$q', '$timeout', function ($http, $q, $timeout) {
-    return {
-
-        sendMail: sendMail,
-        getToken: getToken
-
-    };
-
-    function sendMail(email) {
-        var deferred = $q.defer();
-        //deferred.notify();
-
-        $timeout(function () {
-
-            deferred.resolve();
-
-        }, 2000);
-
-        //deferred.resolve();
-
-        return deferred.promise;
-    };
-
-    function getToken(email) {
-        // body...
-
-        var deferred = $q.defer();
-        //deferred.notify();
-
-        $timeout(function () {
-
-            deferred.resolve();
-
-        }, 2000);
-
-        return deferred.promise;
-
-    };
-}])*/
 
 .factory('AuthService', ['$firebaseAuth', function($firebaseAuth){
-    var ref = new Firebase('https://boiling-fire-629.firebaseio.com');
-    return $firebaseAuth(ref);
+    //var ref = new Firebase('https://boiling-fire-629.firebaseio.com');
+    return $firebaseAuth();
 }])
 
 .filter('split', function () {

@@ -87,7 +87,7 @@ angular.module('app.controllers', ['truncate'])
 .controller('LoginCtrl', function ($scope, $ionicModal, $state, $firebaseAuth, $ionicLoading, $rootScope, AuthService, $ionicHistory) {
     //console.log('Login Controller Initialized');
 
-    var ref = new Firebase("https://boiling-fire-629.firebaseio.com");
+    //var ref = new Firebase("https://boiling-fire-629.firebaseio.com");
     
     /*$ionicModal.fromTemplateUrl('templates/signup.html', {
         scope: $scope
@@ -102,19 +102,17 @@ angular.module('app.controllers', ['truncate'])
                 template: 'Signing Up...'
             });
 
-            AuthService.$createUser({
-                email: user.email,
-                password: generatePass()
-            }).then(function (userData) {
+            AuthService.$createUserWithEmailAndPassword(user.email, generatePass())
+            .then(function (userData) {
                 alert("User created successfully!");
-                AuthService.$resetPassword({ "email" : user.email })
+                AuthService.$sendPasswordResetEmail(user.email)
                 .then(function(){
                     //Send email in params
                     //$state.go('menu.password');
-                    ref.child("users").child(userData.uid).set({
+                    /*ref.child("users").child(userData.uid).set({
                         email: user.email,
                         displayName: user.displayname
-                    });
+                    });*/
                     
                     $ionicLoading.hide();
                     //$scope.modal.hide();
@@ -141,19 +139,17 @@ angular.module('app.controllers', ['truncate'])
             $ionicLoading.show({
                 template: 'Signing In...'
             });
-            AuthService.$authWithPassword({
-                email: user.email,
-                password: user.password
-            }).then(function (authData) {
+            AuthService.$signInWithEmailAndPassword(user.email, user.password)
+            .then(function (authData) {
                 console.log("Logged in as:" + authData.uid);
 
-                ref.child("users").child(authData.uid).once('value', function (snapshot) {
+                /*ref.child("users").child(authData.uid).once('value', function (snapshot) {
                     var val = snapshot.val();
                     // To Update AngularJS $scope either use $apply or $timeout
                     $scope.$apply(function () {
                         $rootScope.displayName = val;
                     });
-                });
+                });*/
                 $ionicLoading.hide();
                 $ionicHistory.nextViewOptions({
                     disableBack: true
@@ -170,7 +166,7 @@ angular.module('app.controllers', ['truncate'])
     }
 
     $scope.resetPwd = function(){
-        AuthService.$resetPassword({ "email" : $scope.credential.email })
+        AuthService.$sendPasswordResetEmail($scope.credential.email)
         .then(function(resp) {
             //Send email in params
             //$state.go('menu.password');
@@ -213,7 +209,7 @@ angular.module('app.controllers', ['truncate'])
 
 
 
-.controller('loginCtrl', ['$scope','AuthService', function($scope, AuthService){
+/*.controller('loginCtrl', ['$scope','AuthService', function($scope, AuthService){
     $scope.credential = { email : ""};
     $scope.createUser = function(){
 
@@ -285,7 +281,7 @@ angular.module('app.controllers', ['truncate'])
             console.log("Error during Login :" +error);
         });
     }
-}])
+}])*/
 /*.controller('loginCtrl', ['$scope', 'signUpService', '$state', function ($scope, signUpService, $state) {
     $scope.login = { email: "" };
     $scope.loginApp = function () {

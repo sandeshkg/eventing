@@ -18,7 +18,7 @@ angular.module('app.routes', [])
           // Auth refers to our $firebaseAuth wrapper in the example above
           "currentAuth": ["AuthService", function(AuthService) {
             // $waitForAuth returns a promise so the resolve waits for it to complete
-            return AuthService.$requireAuth();
+            return AuthService.$requireSignIn();
           }]
         }
       }
@@ -86,7 +86,7 @@ angular.module('app.routes', [])
           // Auth refers to our $firebaseAuth wrapper in the example above
           "currentAuth": ["AuthService", function(AuthService) {
             // $waitForAuth returns a promise so the resolve waits for it to complete
-            return AuthService.$requireAuth();
+            return AuthService.$requireSignIn();
           }]
         }
       }
