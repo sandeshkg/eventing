@@ -32,7 +32,7 @@ angular.module('app.services', ['ngStorage', 'ui-notification', 'firebase'])
 
     this.fetchNewEvents = function () {
 
-        var updates = $firebaseArray(firebase.database().ref());
+        var updates = $firebaseArray(firebase.database().ref().child('events'));
 
         updates.$loaded()
         .then(function(response){

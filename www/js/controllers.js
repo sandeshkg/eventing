@@ -105,7 +105,8 @@ angular.module('app.controllers', ['truncate'])
             AuthService.$createUserWithEmailAndPassword(user.email, generatePass())
             .then(function (userData) {
                 alert("User created successfully!");
-                AuthService.$sendPasswordResetEmail(user.email)
+                firebase.User.sendEmailVerification()
+                //AuthService.$sendPasswordResetEmail(user.email)
                 .then(function(){
                     //Send email in params
                     //$state.go('menu.password');
